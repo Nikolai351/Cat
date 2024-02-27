@@ -1,6 +1,6 @@
 import pygame as pg
-from copy import deepcopy
 
+from copy import deepcopy
 from player import Player
 from food import Food
 from noise_bar import Noise
@@ -11,16 +11,15 @@ from settings import *
 class Level:
     def __init__(self, surface):
         self.surface = surface
-
+        # создаёт задержку до события
         self.delay = 20
         pg.time.set_timer(NOISE_EVENT_TYPE, self.delay)
-
+        # настраивает уровень
         self.setup_level()
 
     def setup_level(self):
-        # настройка уровня
-        self.noise = 0
         pos_foods = deepcopy(attribute_food['pos'])
+        self.noise = 0
         self.player = Player()
         self.foods = pg.sprite.Group()
         self.noise_bar = Noise()
@@ -32,10 +31,10 @@ class Level:
             self.foods.add(Food(path, pos, type_food))
 
     def update(self):
-        # обновление координат героя
+        # обновляет координаты героя
         self.player.update(pg.mouse.get_pos())
 
-        # обновление координат спрайтов еды
+        # обновляет координаты спрайтов еды
         for food in self.foods:
             if self.player.rect_player_collision.collidepoint(food.rect.midright):
                 food.rect.centerx -= 1
@@ -48,22 +47,20 @@ class Level:
             if self.player.rect_player_collision.colliderect(food.rect):
                 self.noise += 1
 
-        # обновление спрайта шума
-        if self.noise < 0:
-            self.noise = 0
-        elif self.noise > 100:
-            self.noise = 100
+        # обновляет спрайт шума
+        self.noise = 0 if self.noise < 0 else self.noise
+        self.noise = 100 if self.noise > 100 else self.noise
         self.noise_bar.update(self.noise)
 
     def run(self):
-        # обновление всех объектов на уровне
+        # вызывает функции обновления всех объектов
         self.update()
 
-        # отрисовка спрайтов еды
+        # отрисовывает спрайты еды
         self.foods.draw(self.surface)
-        # отрисовка героя
-        self.player.draw_paw(self.surface)
-        # отрисовка спрайта шума
-        self.noise_bar.draw_noise_bar(self.surface)
+        # отрисовывает героя
+        self.player.render(self.surface)
+        # отрисовывает спрайт шума
+        self.noise_bar.render_noise(self.surface)
 
 

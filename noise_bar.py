@@ -7,7 +7,7 @@ class Noise(pg.sprite.Sprite):
         self.image = pg.image.load('images/noise_bar/1.png').convert_alpha()
         self.rect = self.image.get_rect(topleft=(10, 10))
 
-    def draw_noise_bar(self, surface):
+    def render_noise(self, surface):
         surface.blit(self.image, self.rect)
 
     def update(self, noise):
