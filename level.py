@@ -12,7 +12,7 @@ class Level:
     def __init__(self, surface):
         self.surface = surface
         # создаёт задержку до события
-        self.delay = 20
+        self.delay = 30
         pg.time.set_timer(NOISE_EVENT_TYPE, self.delay)
         # настраивает уровень
         self.setup_level()
@@ -20,12 +20,16 @@ class Level:
     def setup_level(self):
         pos_foods = deepcopy(attribute_food['pos'])
         self.noise = 0
+        count_good_food = 0
         self.player = Player()
         self.foods = pg.sprite.Group()
         self.noise_bar = Noise()
 
         for _ in range(15):
             type_food = get_type_food()
+            if count_good_food < 5:
+                type_food = 'good'
+                count_good_food += 1
             path = get_path(type_food)
             pos = pos_foods.pop(randint(0, len(pos_foods) - 1))
             self.foods.add(Food(path, pos, type_food))
