@@ -12,6 +12,8 @@ class Level:
         self.surface = surface
         self.win = False
         self.game_over = False
+        self.good_sound = pg.mixer.Sound('sound/good.mp3')
+        self.bad_sound = pg.mixer.Sound('sound/bad.mp3')
         # создаёт задержку до события
         self.delay = 50
         pg.time.set_timer(NOISE_EVENT_TYPE, self.delay)
@@ -81,9 +83,9 @@ class Level:
             if rect_collision_for_food.colliderect(food.rect):
                 if food.type_food == 'good':
                     self.count_smile_cat += 1
-                    print("Съел вкусную еду")
+                    self.good_sound.play()
                 else:
-                    print("Съел не вкусную еду")
+                    self.bad_sound.play()
                 food.kill()
         # отрисовывает лицо котика
         self.surface.blit(image_cat, rect_image_cat)
