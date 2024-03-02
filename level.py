@@ -12,8 +12,8 @@ class Level:
         self.surface = surface
         self.win = False
         self.game_over = False
-        self.good_sound = pg.mixer.Sound('sound/good.mp3')
-        self.bad_sound = pg.mixer.Sound('sound/bad.mp3')
+        self.good_sound = pg.mixer.Sound("sound/good.mp3")
+        self.bad_sound = pg.mixer.Sound("sound/bad.mp3")
         # создаёт задержку до события
         self.delay = 50
         pg.time.set_timer(NOISE_EVENT_TYPE, self.delay)
@@ -33,7 +33,7 @@ class Level:
             # определяет минимальное количество "хорошей" еды
             type_food = get_type_food()
             if count_good_food < 5:
-                type_food = 'good'
+                type_food = "good"
                 count_good_food += 1
             # определяет путь к изображению в зависимости от типа еды
             path = get_path(type_food)
@@ -64,7 +64,6 @@ class Level:
             if self.player.rect_player_collision.colliderect(food.rect):
                 self.noise += 1
 
-
         # обновляет спрайт шума
         self.noise = 0 if self.noise < 0 else self.noise
         self.noise = 100 if self.noise > 100 else self.noise
@@ -72,7 +71,7 @@ class Level:
 
     def check_win(self):
         # создание изображения для эмоции кота
-        image_cat = pg.image.load(f'images/emotion_cat/{self.count_smile_cat}.png')
+        image_cat = pg.image.load(f"images/emotion_cat/{self.count_smile_cat}.png")
         rect_image_cat = image_cat.get_rect(topleft=(730, 10))
         # отрисовывает коллизию внизу экрана для проверки съеденной еды
         collision_for_food = pg.surface.Surface((800, 20))
@@ -81,7 +80,7 @@ class Level:
         # проверка касания спрайтов коллизии
         for food in self.foods:
             if rect_collision_for_food.colliderect(food.rect):
-                if food.type_food == 'good':
+                if food.type_food == "good":
                     self.count_smile_cat += 1
                     self.good_sound.play()
                 else:
@@ -107,10 +106,3 @@ class Level:
         # проверяет условие проигрыша
         if self.noise >= 100:
             self.game_over = True
-
-
-
-
-
-
-

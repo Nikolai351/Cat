@@ -9,21 +9,21 @@ from button import Button
 class Game:
     def __init__(self):
         pg.init()
-        self.music = pg.mixer.Sound('sound/1.mp3')
+        self.music = pg.mixer.Sound("sound/1.mp3")
         self.screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pg.time.Clock()
         self.bg_x = 0
         self.bg_color_menu = pg.Color((238, 195, 154))
-        pg.display.set_caption('NOISE CAT')
+        pg.display.set_caption("NOISE CAT")
 
         self.win = False
         self.game_over = False
 
     def run(self):
-            self.music.play(-1)
-            self.main_menu()
-            pg.quit()
-            sys.exit()
+        self.music.play(-1)
+        self.main_menu()
+        pg.quit()
+        sys.exit()
 
     def scrool_bg_x(self):
         self.bg_x -= 1
@@ -33,19 +33,31 @@ class Game:
     def main_menu(self):
         pg.mouse.set_visible(True)
 
-        title_game = pg.image.load('images/title_game.png')
+        title_game = pg.image.load("images/title_game.png")
 
-        image_table = pg.image.load('images/table.png')
+        image_table = pg.image.load("images/table.png")
         rect_image_title = image_table.get_rect(topleft=(SCREEN_WIDTH // 2 - 300, 20))
 
         font = pg.font.Font(None, 30)
 
-        play_button = Button(SCREEN_WIDTH // 2 - 50, 170, 'images/buttons/PlayIcon.png',
-                             'images/buttons/PlayIconClick.png')
-        option_button = Button(SCREEN_WIDTH // 2 - 50, 300, 'images/buttons/OptIcon.png',
-                               'images/buttons/OptIconClick.png')
-        exit_button = Button(SCREEN_WIDTH // 2 - 50, 430, 'images/buttons/ExitIcon.png',
-                             'images/buttons/ExitIconClick.png')
+        play_button = Button(
+            SCREEN_WIDTH // 2 - 50,
+            170,
+            "images/buttons/PlayIcon.png",
+            "images/buttons/PlayIconClick.png",
+        )
+        option_button = Button(
+            SCREEN_WIDTH // 2 - 50,
+            300,
+            "images/buttons/OptIcon.png",
+            "images/buttons/OptIconClick.png",
+        )
+        exit_button = Button(
+            SCREEN_WIDTH // 2 - 50,
+            430,
+            "images/buttons/ExitIcon.png",
+            "images/buttons/ExitIconClick.png",
+        )
 
         running = True
         while running:
@@ -83,14 +95,14 @@ class Game:
             self.scrool_bg_x()
 
             if self.win:
-                image = pg.image.load('images/emotion_cat/win.png')
+                image = pg.image.load("images/emotion_cat/win.png")
                 rect_image = image.get_rect(topleft=(50, 40))
-                text = font.render('ПОБЕДА!!!', True, (255, 255, 255))
+                text = font.render("ПОБЕДА!!!", True, (255, 255, 255))
                 rect_text = text.get_rect(topleft=(20, 10))
             elif self.game_over:
-                image = pg.image.load('images/emotion_cat/lose.png')
+                image = pg.image.load("images/emotion_cat/lose.png")
                 rect_image = image.get_rect(topleft=(50, 40))
-                text = font.render('ПРОИГРЫШ!!!', True, (255, 255, 255))
+                text = font.render("ПРОИГРЫШ!!!", True, (255, 255, 255))
                 rect_text = text.get_rect(topleft=(5, 10))
 
             if self.game_over or self.win:
@@ -105,13 +117,17 @@ class Game:
         pg.mouse.set_visible(True)
 
         font = pg.font.Font(None, 72)
-        text_surface = font.render('не сделал настройки', True, (255, 255, 255))
+        text_surface = font.render("не сделал настройки", True, (255, 255, 255))
         text_rect = text_surface.get_rect(center=(SCREEN_WIDTH // 2, 50))
 
-        image_table = pg.image.load('images/table.png')
+        image_table = pg.image.load("images/table.png")
 
-        back_button = Button(SCREEN_WIDTH // 2 - 50, 430, 'images/buttons/BackIcon.png',
-                             'images/buttons/BackIconClick.png')
+        back_button = Button(
+            SCREEN_WIDTH // 2 - 50,
+            430,
+            "images/buttons/BackIcon.png",
+            "images/buttons/BackIconClick.png",
+        )
 
         running = True
 
@@ -146,7 +162,7 @@ class Game:
     def play(self):
         pg.mouse.set_visible(False)
 
-        table_image = pg.image.load('images/table_for_game.png')
+        table_image = pg.image.load("images/table_for_game.png")
         rect_table_image = table_image.get_rect(topleft=(0, 80))
 
         level = Level(self.screen)
